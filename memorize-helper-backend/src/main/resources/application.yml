@@ -3,6 +3,11 @@ spring:
     name: memorize-helper-backend
   profiles:
     active: dev
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: memorize-helper
 
 server:
   port: 10080
