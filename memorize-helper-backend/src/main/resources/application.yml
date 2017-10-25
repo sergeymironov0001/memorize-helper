@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: memorize-helper-backend
+  profiles:
+    active: dev
+
+server:
+  port: 10080
+
+
+
