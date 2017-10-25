@@ -19,9 +19,9 @@ repositories {
     mavenCentral()
 }
 
-//springBoot {
-//    mainClass = 'org.sergeymironov0001.memhelper.Application'
-//}
+springBoot {
+    mainClass = 'org.sergeymironov0001.memhelper.Application'
+}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
