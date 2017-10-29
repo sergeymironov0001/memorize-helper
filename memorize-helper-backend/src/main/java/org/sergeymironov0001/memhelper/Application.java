@@ -1,7 +1,7 @@
 package org.sergeymironov0001.memhelper;
 
 import lombok.extern.slf4j.Slf4j;
-import org.sergeymironov0001.memhelper.config.MainConfig;
+import org.sergeymironov0001.memhelper.configs.MainConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
