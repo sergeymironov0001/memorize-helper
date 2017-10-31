@@ -73,12 +73,12 @@ public class MongoFilesRepository implements IFilesRepository {
         if (StringUtils.isBlank(id)) {
             throw new IllegalArgumentException("Id can't be blank to delete file");
         }
-        // To check exists file or not
+        // To check exists file info or not
         getFileInfo(id);
-
         fileInfoRepository.delete(id);
 
-        Query deleteFileQuery = new Query(GridFsCriteria.where("_id").is(id));
-        gridFsTemplate.delete(deleteFileQuery);
+        // To check exists file or not
+        getFile(id);
+        gridFsTemplate.delete(new Query(GridFsCriteria.where("_id").is(id)));
     }
 }
