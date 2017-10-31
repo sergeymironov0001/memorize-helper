@@ -1,4 +1,4 @@
-package org.sergeymironov0001.memhelper.repositories;
+package org.sergeymironov0001.memhelper.repositories.mongo;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
@@ -14,6 +14,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sergeymironov0001.memhelper.configs.RepositoriesConfig;
 import org.sergeymironov0001.memhelper.domain.FileInfo;
+import org.sergeymironov0001.memhelper.repositories.FileNotFoundException;
+import org.sergeymironov0001.memhelper.repositories.IFilesRepository;
 import org.sergeymironov0001.memhelper.testutils.FileTestUtils;
 import org.sergeymironov0001.memhelper.testutils.MongoTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
