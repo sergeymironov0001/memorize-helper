@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({
-        MongoConfig.class
+        MongoConfig.class,
+        RepositoriesConfig.class,
+        ControllersConfig.class
 })
 public class MainConfig {
 }
