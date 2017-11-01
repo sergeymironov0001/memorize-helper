@@ -4,7 +4,7 @@ import org.sergeymironov0001.memhelper.domain.FileInfo;
 
 import java.io.InputStream;
 
-public interface IFilesRepository {
+public interface IFilesStorage {
 
     FileInfo save(FileInfo fileInfo, InputStream file);
 

@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.sergeymironov0001.memhelper.domain.FileInfo;
 import org.sergeymironov0001.memhelper.repositories.FileNotFoundException;
-import org.sergeymironov0001.memhelper.repositories.IFilesRepository;
+import org.sergeymironov0001.memhelper.repositories.IFilesStorage;
 import org.sergeymironov0001.memhelper.utils.DateUtils;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsCriteria;
@@ -18,7 +18,7 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 @Slf4j
-public class MongoFilesRepository implements IFilesRepository {
+public class MongoFilesStorage implements IFilesStorage {
 
     private final GridFsTemplate gridFsTemplate;
 

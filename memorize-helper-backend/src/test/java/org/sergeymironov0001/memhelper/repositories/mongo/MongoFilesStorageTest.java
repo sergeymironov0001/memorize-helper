@@ -9,45 +9,46 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 import java.io.InputStream;
 
-public class MongoFilesRepositoryTest {
+public class MongoFilesStorageTest {
+
     @Mock
     private GridFsTemplate gridFsTemplate;
 
     @Mock
     private IMongoFileInfoRepository mongoFileInfoRepository;
 
-    private MongoFilesRepository mongoFilesRepository;
+    private MongoFilesStorage mongoFilesStorage;
 
     @Before
     public void init() {
-        mongoFilesRepository = new MongoFilesRepository(gridFsTemplate, mongoFileInfoRepository);
+        mongoFilesStorage = new MongoFilesStorage(gridFsTemplate, mongoFileInfoRepository);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void saveThrowsIllegalArgumentExceptionIfFileInfoIsNull() throws Exception {
         try (InputStream testFile = FileTestUtils.getResourceFileAsStream("testFile.txt")) {
-            mongoFilesRepository.save(null, testFile);
+            mongoFilesStorage.save(null, testFile);
         }
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void saveThrowsIllegalArgumentExceptionIfInputStreamIsNull() throws Exception {
-        mongoFilesRepository.save(new FileInfo(), null);
+        mongoFilesStorage.save(new FileInfo(), null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void getFileInfoThrowsIllegalArgumentExceptionIfIdIsNull() throws Exception {
-        mongoFilesRepository.getFile(null);
+        mongoFilesStorage.getFile(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void getFileThrowsIllegalArgumentExceptionIfIdIsNull() throws Exception {
-        mongoFilesRepository.getFile(null);
+        mongoFilesStorage.getFile(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void deleteThrowsIllegalArgumentExceptionIfIdIsNull() throws Exception {
-        mongoFilesRepository.delete(null);
+        mongoFilesStorage.delete(null);
     }
 
 }

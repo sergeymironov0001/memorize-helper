@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import org.sergeymironov0001.memhelper.configs.RepositoriesConfig;
 import org.sergeymironov0001.memhelper.domain.FileInfo;
 import org.sergeymironov0001.memhelper.repositories.FileNotFoundException;
-import org.sergeymironov0001.memhelper.repositories.IFilesRepository;
+import org.sergeymironov0001.memhelper.repositories.IFilesStorage;
 import org.sergeymironov0001.memhelper.testutils.FileTestUtils;
 import org.sergeymironov0001.memhelper.testutils.MongoTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +41,11 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {MongoFilesRepositoryIntegrationTest.IFilesRepositoryTestConfig.class})
-public class MongoFilesRepositoryIntegrationTest {
+@ContextConfiguration(classes = {MongoFilesStorageIntegrationTest.IFilesRepositoryTestConfig.class})
+public class MongoFilesStorageIntegrationTest {
 
     @Autowired
-    private IFilesRepository filesRepository;
+    private IFilesStorage filesRepository;
 
     @Autowired
     private MongoOperations mongoOperations;
