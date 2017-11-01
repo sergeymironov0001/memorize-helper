@@ -32,6 +32,7 @@ public class MongoFilesRepository implements IFilesRepository {
         if (Objects.isNull(file)) {
             throw new IllegalArgumentException("File can't be null to store file");
         }
+        log.debug("Saving file \'{}\'", fileInfo);
 
         GridFSFile gridFSFile = gridFsTemplate.store(file, fileInfo.getName(), fileInfo.getContentType());
 
@@ -39,6 +40,7 @@ public class MongoFilesRepository implements IFilesRepository {
                 .setUploadDateTime(DateUtils.dateToLocalDateTime(gridFSFile.getUploadDate()))
                 .setSize(gridFSFile.getLength());
 
+        log.debug("File was saved \'{}\'", fileInfo);
         return fileInfoRepository.save(fileInfo);
     }
 
@@ -47,10 +49,12 @@ public class MongoFilesRepository implements IFilesRepository {
         if (StringUtils.isBlank(id)) {
             throw new IllegalArgumentException("Id can't be blank to get file info ");
         }
+        log.debug("Getting file info for file with id \'{}\'", id);
         FileInfo fileInfo = fileInfoRepository.findOne(id);
         if (Objects.isNull(fileInfo)) {
             throw new FileNotFoundException(id);
         }
+        log.debug("File info for file with id \'{}\' was gotten", id);
         return fileInfo;
     }
 
@@ -59,12 +63,15 @@ public class MongoFilesRepository implements IFilesRepository {
         if (StringUtils.isBlank(id)) {
             throw new IllegalArgumentException("Id can't be blank to get file");
         }
+        log.debug("Getting file with id \'{}\'", id);
+
         Query findFileQuery = new Query(GridFsCriteria.where("_id").is(id));
         GridFSDBFile file = gridFsTemplate.findOne(findFileQuery);
 
         if (Objects.isNull(file)) {
             throw new FileNotFoundException(id);
         }
+        log.debug("File with id \'{}\' was gotten", id);
         return file.getInputStream();
     }
 
@@ -73,6 +80,7 @@ public class MongoFilesRepository implements IFilesRepository {
         if (StringUtils.isBlank(id)) {
             throw new IllegalArgumentException("Id can't be blank to delete file");
         }
+        log.debug("Deleting file with id \'{}\'", id);
         // To check exists file info or not
         getFileInfo(id);
         fileInfoRepository.delete(id);
@@ -80,5 +88,6 @@ public class MongoFilesRepository implements IFilesRepository {
         // To check exists file or not
         getFile(id);
         gridFsTemplate.delete(new Query(GridFsCriteria.where("_id").is(id)));
+        log.debug("File with id \'{}\' was deleted", id);
     }
 }
