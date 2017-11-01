@@ -1,14 +1,18 @@
 package org.sergeymironov0001.memhelper.domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @Document
-public class Repeat {
+@Accessors(fluent = true)
+public class Repeat implements Serializable {
+
     @Id
     private String id;
 
