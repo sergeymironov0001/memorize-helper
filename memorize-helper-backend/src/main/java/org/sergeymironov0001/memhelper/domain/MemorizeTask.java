@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Document
-@Accessors(fluent = true)
+//@Accessors(fluent = true)
 public class MemorizeTask implements Serializable {
 
     @Id
@@ -22,13 +22,11 @@ public class MemorizeTask implements Serializable {
 
     private String description;
 
-    private LocalDate startDate;
+    private List<String> tags = new ArrayList<>();
 
-    private List<String> tags;
+    private List<String> relatedUrls = new ArrayList<>();
 
-    private List<Repeat> repeats;
+    private List<FileInfo> relatedFiles = new ArrayList<>();
 
-    private List<FileInfo> relatedFile = new ArrayList<>();
-
-    private List<String> relatedUrls;
+//    private List<Repeat> repeats = new ArrayList<>();
 }
