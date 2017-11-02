@@ -54,13 +54,13 @@ public class MongoFilesStorageIntegrationTest {
     private GridFsTemplate gridFsTemplate;
 
     @Test
-    public void saveSavesFileCorrectly() throws Exception {
+    public void storeSavesFileCorrectly() throws Exception {
         FileInfo testFileInfo = new FileInfo()
                 .setName("test.txt")
                 .setContentType("plain/text");
 
         try (InputStream testFile = getClass().getClassLoader().getResourceAsStream("testFile.txt")) {
-            FileInfo savedFileInfo = filesRepository.save(testFileInfo, testFile);
+            FileInfo savedFileInfo = filesRepository.store(testFileInfo, testFile);
 
             assertNotNull(savedFileInfo);
             assertFalse(StringUtils.isBlank(savedFileInfo.getId()));

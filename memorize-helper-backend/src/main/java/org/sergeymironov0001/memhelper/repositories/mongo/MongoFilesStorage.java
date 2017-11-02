@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.gridfs.GridFsCriteria;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -25,14 +26,14 @@ public class MongoFilesStorage implements IFilesStorage {
     private final IMongoFileInfoRepository fileInfoRepository;
 
     @Override
-    public FileInfo save(FileInfo fileInfo, InputStream file) {
+    public FileInfo store(FileInfo fileInfo, InputStream file) {
         if (Objects.isNull(fileInfo)) {
             throw new IllegalArgumentException("File info can't be null to store file");
         }
         if (Objects.isNull(file)) {
             throw new IllegalArgumentException("File can't be null to store file");
         }
-        log.debug("Saving file \'{}\'", fileInfo);
+        log.debug("Saving file: {}", fileInfo);
 
         GridFSFile gridFSFile = gridFsTemplate.store(file, fileInfo.getName(), fileInfo.getContentType());
 
@@ -40,7 +41,7 @@ public class MongoFilesStorage implements IFilesStorage {
                 .setUploadDateTime(DateUtils.dateToLocalDateTime(gridFSFile.getUploadDate()))
                 .setSize(gridFSFile.getLength());
 
-        log.debug("File was saved \'{}\'", fileInfo);
+        log.debug("File was saved: \'{}\'", fileInfo);
         return fileInfoRepository.save(fileInfo);
     }
 
@@ -54,7 +55,7 @@ public class MongoFilesStorage implements IFilesStorage {
         if (Objects.isNull(fileInfo)) {
             throw new FileNotFoundException(id);
         }
-        log.debug("File info for file with id \'{}\' was gotten", id);
+        log.debug("File info for file with id \'{}\' was gotten: {}", id, fileInfo);
         return fileInfo;
     }
 
@@ -89,5 +90,15 @@ public class MongoFilesStorage implements IFilesStorage {
         getFile(id);
         gridFsTemplate.delete(new Query(GridFsCriteria.where("_id").is(id)));
         log.debug("File with id \'{}\' was deleted", id);
+    }
+
+    @Override
+    public void delete(Collection<String> ids) {
+        if (Objects.isNull(ids)) {
+            throw new IllegalArgumentException("Collections of ids can't be null to delete files");
+        }
+        log.debug("Deleting files with ids \'{}\'", ids);
+        ids.forEach(this::delete);
+        log.debug("Files with ids \'{}\' was deleted", ids);
     }
 }

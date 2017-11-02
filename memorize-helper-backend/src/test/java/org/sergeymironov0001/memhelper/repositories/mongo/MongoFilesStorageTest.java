@@ -25,15 +25,15 @@ public class MongoFilesStorageTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void saveThrowsIllegalArgumentExceptionIfFileInfoIsNull() throws Exception {
+    public void storeThrowsIllegalArgumentExceptionIfFileInfoIsNull() throws Exception {
         try (InputStream testFile = FileTestUtils.getResourceFileAsStream("testFile.txt")) {
-            mongoFilesStorage.save(null, testFile);
+            mongoFilesStorage.store(null, testFile);
         }
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void saveThrowsIllegalArgumentExceptionIfInputStreamIsNull() throws Exception {
-        mongoFilesStorage.save(new FileInfo(), null);
+    public void storeThrowsIllegalArgumentExceptionIfInputStreamIsNull() throws Exception {
+        mongoFilesStorage.store(new FileInfo(), null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -48,7 +48,6 @@ public class MongoFilesStorageTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void deleteThrowsIllegalArgumentExceptionIfIdIsNull() throws Exception {
-        mongoFilesStorage.delete(null);
+        mongoFilesStorage.delete((String) null);
     }
-
 }
