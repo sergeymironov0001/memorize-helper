@@ -8,7 +8,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.InputStream;
 
@@ -20,26 +23,14 @@ public class FilesStorageController {
 
     private final IFilesStorage filesRepository;
 
-//    @PostMapping(
-//            path = "/",
-//            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public FileInfo uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-//        FileInfo fileInfo = new FileInfo()
-//                .setName(file.getOriginalFilename())
-//                .setContentType(file.getContentType());
-//        try (InputStream inputStream = file.getInputStream()) {
-//            return filesRepository.save(fileInfo, inputStream);
-//        }
-//    }
-
     @GetMapping(path = "/{id}/info",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public FileInfo getFileInfo(@PathVariable String id) {
         return filesRepository.getFileInfo(id);
     }
 
-    @GetMapping(path = "/{id}",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            path = "/{id}")
     public ResponseEntity<InputStreamResource> getFile(@PathVariable String id) {
         FileInfo fileInfo = filesRepository.getFileInfo(id);
 
@@ -52,12 +43,24 @@ public class FilesStorageController {
         InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
         return new ResponseEntity<>(inputStreamResource, responseHeaders, HttpStatus.OK);
     }
-
-    @DeleteMapping(path = "/{id}",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void deleteFile(@PathVariable String id) {
-        filesRepository.delete(id);
-    }
+//
+//    @PostMapping(
+//            path = "/",
+//            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    public FileInfo uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+//        FileInfo fileInfo = new FileInfo()
+//                .setName(file.getOriginalFilename())
+//                .setContentType(file.getContentType());
+//        try (InputStream inputStream = file.getInputStream()) {
+//            return filesRepository.store(fileInfo, inputStream);
+//        }
+//    }
+//
+//    @DeleteMapping(path = "/{id}",
+//            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    public void deleteFile(@PathVariable String id) {
+//        filesRepository.delete(id);
+//    }
 }
 
 
